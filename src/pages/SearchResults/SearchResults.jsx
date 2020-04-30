@@ -1,10 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import {Link, useParams} from 'react-router-dom';
+import summonerService from '../../utils/summonerService';
 
 const SearchResults = () => {
-    const [results, setResults] = useState([]);
+    const [entries, setEntries] = useState({});
+    const [matches, setMatches] = useState({});
+
     const {query} = useParams();
+
+    useEffect(() => {
+        summonerService.search(query).then(res => {
+            summonerService.entries(res.id).then(res => setEntries(res));
+            summonerService.matches(res.accountId).then(res => setMatches(res));
+        });
+    }, [query]);
     
+
     return (
         <div>
             <h1>We are on the search results page</h1>
