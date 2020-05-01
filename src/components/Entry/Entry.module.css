@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    border: 1px solid gray;
+}
+
+.flexVerti {
+    display: flex;
+    flex-direction: column;
+}
+
+.rankedIcon {
+    max-width: 10rem;
+    height: auto;
+}
+
