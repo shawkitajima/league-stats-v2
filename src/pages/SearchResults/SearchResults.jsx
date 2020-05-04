@@ -4,6 +4,7 @@ import summonerService from '../../utils/summonerService';
 import styles from './SearchResults.module.css';
 
 import Entry from '../../components/Entry/Entry';
+import GameOverview from '../../components/GameOverview/GameOverview';
 
 const SearchResults = () => {
 
@@ -16,7 +17,7 @@ const SearchResults = () => {
     }
 
     const [entries, setEntries] = useState({});
-    const [matches, setMatches] = useState({});
+    const [matches, setMatches] = useState([]);
     const [search, setSearch] = useState(null);
 
     const {query} = useParams();
@@ -24,7 +25,7 @@ const SearchResults = () => {
     useEffect(() => {
         summonerService.search(query).then(res => {
             summonerService.entries(res.id).then(res => setEntries(res));
-            summonerService.matches(res.accountId).then(res => setMatches(res));
+            summonerService.matches(res.accountId).then(res => setMatches(res.matches));
         });
     }, [query]);
     
@@ -46,7 +47,10 @@ const SearchResults = () => {
                     }
                 </div>
                 <div className={styles.right}>
-                    <h1>Yoloswag</h1>
+                    {matches.length > 0 && (
+                        matches.map((match, idx) => (
+                            <GameOverview match={match} key={idx} />
+                    )))}
                 </div>
             </div>
         </div>

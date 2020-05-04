@@ -6,5 +6,6 @@ const summonersCtrl = require('../../controllers/summoners');
 router.get('/search/:query', summonersCtrl.search);
 router.get('/entries/:id', summonersCtrl.entries);
 router.get('/matches/:id', summonersCtrl.matches);
+router.get('/detail/:id', summonersCtrl.matchDetail);
 
 module.exports = router;

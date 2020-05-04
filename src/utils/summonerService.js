@@ -4,6 +4,7 @@ export default {
     search,
     entries,
     matches,
+    matchDetail,
 }
 
 function search(query) {
@@ -18,3 +19,6 @@ function matches(id) {
     return fetch(`${BASE_URL}/matches/${id}`).then(res => res.json());
 }
 
+function matchDetail(id) {
+    return fetch(`${BASE_URL}/detail/${id}`).then(res => res.json());
+}

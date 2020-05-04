@@ -3,7 +3,8 @@ const axios = require('axios');
 module.exports = {
     search,
     entries,
-    matches
+    matches,
+    matchDetail,
 }
 
 function search(req, res) {
@@ -20,6 +21,12 @@ function entries(req, res) {
 
 function matches(req, res) {
     axios.get(`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${req.params.id}?api_key=${process.env.LEAGUE_KEY}`)
+    .then(response => res.send(response.data))
+    .catch(error => console.log(error))
+}
+
+function matchDetail(req, res) {
+    axios.get(`https://na1.api.riotgames.com/lol/match/v4/matches/${req.params.id}?api_key=${process.env.LEAGUE_KEY}`)
     .then(response => res.send(response.data))
     .catch(error => console.log(error))
 }
