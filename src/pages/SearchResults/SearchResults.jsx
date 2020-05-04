@@ -16,16 +16,22 @@ const SearchResults = () => {
         }
     }
 
+    const [result, setResult] = useState({});
     const [entries, setEntries] = useState({});
     const [matches, setMatches] = useState([]);
     const [search, setSearch] = useState(null);
+    const [champions, setChampions] = useState({});
+    const [spells, setSpells] = useState({});
 
     const {query} = useParams();
 
     useEffect(() => {
         summonerService.search(query).then(res => {
+            setResult(res);
             summonerService.entries(res.id).then(res => setEntries(res));
             summonerService.matches(res.accountId).then(res => setMatches(res.matches));
+            summonerService.champions().then(res => setChampions(res.data));
+            summonerService.spells().then(res => setSpells(res.data));
         });
     }, [query]);
     
@@ -48,8 +54,8 @@ const SearchResults = () => {
                 </div>
                 <div className={styles.right}>
                     {matches.length > 0 && (
-                        matches.map((match, idx) => (
-                            <GameOverview match={match} key={idx} />
+                        matches.slice(0, 2).map((match, idx) => (
+                            <GameOverview match={match} key={idx} champions={champions} result={result} spells={spells}/>
                     )))}
                 </div>
             </div>
