@@ -8,3 +8,13 @@
     width: 2rem;
     height: 2rem;
 }
+
+.flexCol {
+    display: flex;
+    flex-direction: column;
+}
+
+.flexRow {
+    display: flex;
+    justify-content: flex-start;
+}
